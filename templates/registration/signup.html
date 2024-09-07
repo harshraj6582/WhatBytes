@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<style>
+  .signup-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #218838;
+  }
+
+  .signup-links {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .signup-links a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .signup-links a:hover {
+    text-decoration: underline;
+  }
+
+  .error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+</style>
+
+<div class="signup-container">
+  <h2>Sign Up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <small class="error">{{ field.errors|striptags }}</small>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <div class="signup-links">
+    <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+  </div>
+</div>
+{% endblock %}
